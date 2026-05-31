@@ -24,7 +24,13 @@ composer update fuisic/laravel-auth
 
 ### Локальная разработка (path repository)
 
-Если репозиторий пакета лежит рядом с приложением:
+Если репозиторий пакета лежит **рядом** с приложением:
+
+```
+FUISIC/
+├── fuisic_back/
+└── fuisic-laravel-auth/
+```
 
 ```json
 {
@@ -39,6 +45,14 @@ composer update fuisic/laravel-auth
         "fuisic/laravel-auth": "@dev"
     }
 }
+```
+
+В Docker смонтируйте соседний каталог (как в `fuisic_back/docker-compose-local.yml`):
+
+```yaml
+volumes:
+  - '.:/var/www/html'
+  - '../fuisic-laravel-auth:/var/www/html/../fuisic-laravel-auth:ro'
 ```
 
 ## Laravel
