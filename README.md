@@ -1,0 +1,62 @@
+# fuisic/laravel-auth
+
+Laravel-пакет авторизации для API-проектов FUISIC: Sanctum-токены, подтверждение email через RabbitMQ, OAuth (ВКонтакте, Яндекс), passkeys (WebAuthn) и сброс пароля.
+
+## Возможности
+
+- Регистрация и вход по email/паролю (Laravel Sanctum)
+- Подтверждение email с асинхронной отправкой писем (RabbitMQ)
+- Сброс и смена пароля
+- OAuth: вход и привязка аккаунтов ВК и Яндекс
+- Passkeys (Face ID / Touch ID на Apple и аналоги)
+- Привязка нескольких OAuth-провайдеров к одному пользователю
+
+## Требования
+
+- PHP 8.2+
+- Laravel 11+
+- PostgreSQL / MySQL (любая БД Laravel)
+- RabbitMQ (для очередей писем)
+- Redis (рекомендуется для кэша)
+
+## Быстрый старт
+
+```bash
+composer require fuisic/laravel-auth
+php artisan vendor:publish --tag=fuisic-auth-config
+php artisan vendor:publish --tag=fuisic-auth-migrations
+php artisan vendor:publish --provider="Laragear\WebAuthn\WebAuthnServiceProvider" --tag="migrations"
+php artisan migrate
+```
+
+Подробнее: [docs/INSTALLATION.md](docs/INSTALLATION.md)
+
+## Документация
+
+| Файл | Описание |
+|------|----------|
+| [docs/INSTALLATION.md](docs/INSTALLATION.md) | Установка и подключение к проекту |
+| [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | Переменные окружения и config |
+| [docs/API.md](docs/API.md) | HTTP-эндпоинты и примеры запросов |
+
+## Модель пользователя
+
+```php
+use Fuisic\Auth\Traits\HasFuisicAuth;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laragear\WebAuthn\Contracts\WebAuthnAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable implements MustVerifyEmail, WebAuthnAuthenticatable
+{
+    use HasApiTokens, HasFuisicAuth;
+}
+```
+
+## Используется в
+
+- [fuisic_back](https://github.com/FUISIC/fuisic_back) — backend FUISIC
+
+## Лицензия
+
+MIT. См. [LICENSE](LICENSE).
