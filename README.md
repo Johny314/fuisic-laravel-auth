@@ -55,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail, WebAuthnAuthentic
 
 ## Используется в
 
-- [fuisic_back](https://github.com/FUISIC/fuisic_back) — backend FUISIC
+- [fuisic_back](https://github.com/Johny314/fuisic_back) — backend FUISIC
 
 ## Лицензия
 
